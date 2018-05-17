@@ -1,0 +1,51 @@
+% Titelseite braucht folgenden  Eintrag
+% \usepackage[absolute]{textpos}
+% textpos ist nicht Bestandteil von tetex
+% kann aber von dante heruntergeladen werden
+\begin{titlepage}
+\vspace*{-1cm}
+\newlength{\links}
+\setlength{\links}{0.9cm}
+\setlength{\TPHorizModule}{1cm}
+\setlength{\TPVertModule}{1cm}
+\textblockorigin{0pt}{0pt}
+
+\sffamily
+\LARGE
+
+\begin{textblock}{16.5}(2.8,2.6)
+ \hspace*{-0.25cm} \textbf{UNIVERSITÄT DUISBURG-ESSEN} \\
+ \hspace*{-1.15cm} \rule{5mm}{5mm} \hspace*{0.05cm} FAKULTÄT FÜR INGENIEURWISSENSCHAFTEN\\
+ \large{}ABTEILUNG INFORMATIK UND ANGEWANDTE KOGNITIONSWISSENSCHAFT\\
+\end{textblock}
+
+
+%Hier Titel, Name, und Matrikelnummer eintragen, \\ make a newline
+\begin{textblock}{14.5}(3.2,8.5)
+  \large
+{ \textbf{Bachelorarbeit}} \\[1cm]
+{\LARGE \Large\textbf{Erweiterung des CT Game Studios um einen \enquote{Open Stage} Modus}} \\[1.3cm]
+Daniel Rose\\
+Matrikelnummer: 2270435
+\end{textblock}
+
+
+
+\begin{textblock}{10}(10.5,17.5)
+\includegraphics[scale=1.0]{unilogo.pdf}\\
+\normalsize
+\raggedleft
+Abteilung Informatik und angewandte Kognitionswissenschaft \\
+Fakultät für Ingenieurwissenschaften \\
+Universität Duisburg-Essen \\[2ex]
+
+\today\\[15ex]
+\raggedright
+% Supervisors
+{\textbf Betreuer:} \\
+Prof. Dr. H.~U.~Hoppe\\
+Sven Manske\\
+Sören Werneburg\\
+\end{textblock}
+
+\end{titlepage}

@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+pdflatex Daniel_Rose_Bachelorarbeit.tex
+bibtex Daniel_Rose_Bachelorarbeit.aux
+pdflatex Daniel_Rose_Bachelorarbeit.tex
+pdflatex Daniel_Rose_Bachelorarbeit.tex
+rm *.aux *.toc *.blg *.lof *.bbl *.out
