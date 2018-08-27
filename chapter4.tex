@@ -57,6 +57,10 @@ beschreiben, welcher Code aus einem Block generiert werden soll. \todo{Codebeisp
 Blockly-Developer-Tools\footnote{https://blockly-demo.appspot.com/static/demos/blockfactory/index.html}
 können genutzt werden, um die Block-Konfiguration zu generieren und zu verwalten.
 
+Für das ctGameStudio wurden Blöcke definiert, die Aktionen des Roboters entsprechen. Der zu einem
+Block zugehörige Code ist ein Funktionsaufruf, der im Aufruf einer Methode des Roboter-Spielobjekts
+resultiert (mehr dazu im nächsten Abschnitt).
+
 Die Programme, die mit dem Editor erstellt wurden, können als XML exportiert werden. Analog dazu
 kann das Programm in den Editor importiert werden. Zusätzlich kann das Programm in Block-Struktur
 andhand der Block-Konfiguration in Javascript-Code umgewandelt werden.
@@ -64,7 +68,7 @@ andhand der Block-Konfiguration in Javascript-Code umgewandelt werden.
 Im ctGameStudio wird der Blockly Editor zur Erstellung von Roboterstrategien genutzt. Bei Laden
 eines Storylevels wird die Werkzeugleiste und das bereit stehende Programm dynamisch an die
 Anforderungen des Levels angepasst. So sind nur die Blöcke verfügbar, die in dem Level benutzt
-werden sollen, und der Editor mit einem leeren oder teils vordefiniertem Programm bestückt.
+werden sollen, und der Editor wird mit einem leeren oder teils vordefiniertem Programm bestückt.
 
 Bei Ausführung der Roboterstrategie wird eine Javascript-Version des Blockprogramms generiert, und
 mit dem Strategieinterpreter ausgeführt.
@@ -76,8 +80,9 @@ so den Roboter auf dem Spielfeld zu steuern. Er basiert auf dem
 JS-Interpreter\footnote{https://neil.fraser.name/software/JS-Interpreter/docs.html} von Neil Fraser,
 der eine Sandbox-Umgebung zur sicheren Ausführung von Javscript bereit stellt. Das Sandboxing
 garantiert, dass der Code isoliert von der Host-Umgebung, also der Javascript-Umgebung in der das
-Spiel läuft, ausgeführt werden kann. Der durch den Anwender erstellten Code kann durch Ausführung
-keine Crashes oder Endlosschleifen verursachen.
+Spiel läuft, ausgeführt werden kann. Der durch den Anwender erstellten Code kann durch seine
+Ausführung keine Crashes oder Endlosschleifen verursachen. Der Code bekommt keinen Zugang auf das
+DOM. Außerdem wird verhindert, dass der Code übermäßig Speicher belegt.
 
 Neben nativer Javascript-Funktionalität (z.B. Rechenoperationen, Schleifen, und dem Definieren und
 Ausführung von Funktionen) gibt der Interpreter die Möglichkeit, Funktionen zu definieren, die aus
@@ -98,6 +103,8 @@ Die Schritt-Funktion wird initial beim Start der Ausführung durch den Nutzer au
 wird die Funktion immer nach Abschluss einer Aktion des Roboters oder wenn durch ein Spielereignis
 (z.B. Kollision mit dem Rand der Spielwelt) die gerade ausgeführte Aktion des Roboters unterbrochen
 wurde.
+
+\todo{Diagramm + Pseudo-Code der Ausführung}
 
 
 \section{Anpassung der Architektur}
