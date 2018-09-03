@@ -65,6 +65,16 @@ headings=normal]{scrbook}
 \usepackage{textcomp}
 \usepackage{listings}
 \lstset{upquote=true}
+\lstset{literate=%
+    {Ö}{{\"O}}1
+    {Ä}{{\"A}}1
+    {Ü}{{\"U}}1
+    {ß}{{\ss}}1
+    {ü}{{\"u}}1
+    {ä}{{\"a}}1
+    {ö}{{\"o}}1
+    {~}{{\textasciitilde}}1
+}
 
 % finetune the gaps between figure and text in the subfigure environment (basically close the gap as much as possible)
 \renewcommand{\subfigtopskip}{0pt}
