@@ -1,28 +1,24 @@
 \chapter{Implementierung}
 
-(TODO Einführung noch in Entwurfsphase) Die Architektur des CTGameStudio in der Erstversion musste
-angepasst werden, um die Anforderungen des neuen Spielmodus zu erfüllen. Das Hinzufügen eines
-zweiten Roboters erfordert, mehrere Instanzen der blockly-Komponente und des Strategie-Interpreters
-zu erzeugen (TODO etwas generischer formulieren).  Die gleichzeitige Ausführung mehrerer Strategien
-muss ermöglicht werden. Die Gameloop und Roboterspielobjekte müssen so angepasst werden, dass die
-Roboter sinnvoll miteinander interagieren und sich so verhalten, dass sinnvolles Gameplay möglich
-ist. Zudem muss das Spiel Dialoge mit Formularelementen erweitert werden, und das Speichern und
-Laden von Daten über HTTP-Schnittstellen des Servers unterstützen. (Statemanagement, +
-HTML-Komponenten/Render-Strategie)
-
+Die Architektur des CTGameStudio in der Erstversion musste angepasst werden, um den Anforderungen
+des neuen Spielmodus zu erfüllen. Das Hinzufügen eines zweiten Roboters erfordert, mehrere Instanzen
+der blockly-Komponente und des Strategie-Interpreters zu erzeugen. Die gleichzeitige Ausführung
+mehrerer Strategien musste ermöglicht werden. Die Gameloop und Roboterspielobjekte mussten so angepasst werden, dass die Roboter sinnvoll miteinander interagieren und sich so verhalten, dass ein
+gut nachverfolgbares Gameplay möglich ist und unterschiedliche Strategieansätze zum Erfolg führen.
+Das Spiel musste um Dialoge mit Formularelementen und Turniervisualisationen erweitert werden. Zur
+Persistenz und Interaktion zwischen verschiednen Benutzern des Systems muss das System das Speichern
+und Laden von Daten über HTTP-Schnittstellen des Servers unterstützen.
 
 \section{Architektur der Erstversion}
 
 Das ctGameStudio ist ein Webanwendung. Der Server liefert Seiten an den Browser aus und bietet
 Login-Management. Unterstützt wird dies durch das auf Node.JS und MongoDB basiertem
 KeystoneJS-Framework \footnote{https://keystonejs.com}. Die Darstellung und das dynamische Verhalten
-des Spiels basiert auf browser-seitig ausgeführtem HTML und CSS, und Javascript. Neben
-Standard-HTML-Inputs wird Phaser \footnote{https://phaser.io} genutzt, um mittels WebGL
-Spielelemente zu rendern.
+des Spiels basiert auf browser-seitig ausgeführtem HTML und CSS, und Javascript (Abb.
+\ref{architektur-alt}). Neben Standard-HTML-Inputs wird Phaser \footnote{https://phaser.io} genutzt,
+um mittels WebGL Spielelemente zu rendern.
 
 \begin{figure}
-  \label{architektur-alt}
-  
   \caption{Architektur des ctGameStudio in der Erstversion.
   Phaser-Spielobjekte sind rot hervorgehoben. Durchgezogene Linien zeigen
   Beziehungen zwischen Komponenten und Subkomponenten, wobei die Komponente die
@@ -30,6 +26,8 @@ Spielelemente zu rendern.
   Komponenten zeigen Abhängigkeiten, so dass eine Komponente die andere
   referenziert und den internenen Zustand der Komponente verändert.}
 
+  \label{architektur-alt}
+  
   \includegraphics{figures/architektur-alt.pdf}
 \end{figure}
 
@@ -65,8 +63,10 @@ Block generierte Code ist ein Funktionsaufruf, der im Aufruf einer Methode des R
 resultiert (z.B. Abb. \ref{block-configuration}, Zeile 18).
 
 \begin{figure}
-  \label{block-configuration}
   \caption{Konfiguration eines Blocks}
+
+  \label{block-configuration}
+
   \begin{lstlisting}
     // Beschreibung des Blocks
     Blockly.Blocks.turn = {
@@ -114,9 +114,9 @@ Zur Ausführung der Roboterstrategie wird eine Javascript-Version des Blockprogr
 \ref{code-generation}), und mit dem Strategieinterpreter ausgeführt.
 
 \begin{figure}
-  \label{code-generation}
-
   \caption{Eine Strategie als Blockly-Programm und der resultierende Code. (TODO Bild des Programms einfügen)}
+
+  \label{code-generation}
 
   \begin{lstlisting}
     while (true) {
@@ -148,23 +148,28 @@ definiert, die eine zugehörige Methode auf dem Roboter-Spielobjekt ausführt. (
 \ref{js-interpreter-init}).
 
 \begin{figure}
-  \label{js-interpreter-init}
   \caption{Initalisierung des JS-Interpreters mit Strategie-Code, und der API zur Steuerung des
   Roboters.}
+
+  \label{js-interpreter-init}
+
   \begin{lstlisting}
     const strategyCode = Blockly.JavaScript.workspaceToCode(workspace);
-    const interpreter = new JSInterpreter(strategyCode, function (interpreter, scope) {
-      const turn = interpreter.createNativeFunction(
-        (direction, angle) => robot.turn(direction, angle)
-      );
-      const forward = interpreter.createNativeFunction(
-        (distance) => robot.foward(distance);
-      )
-      ...
-      interpreter.setProperty(scope, 'turn', turn);
-      interpreter.setProperty(scope, 'forward', forward);
-      ...
-    }
+    const interpreter = new JSInterpreter(
+      strategyCode,
+      function (interpreter, scope) {
+        const turn = interpreter.createNativeFunction(
+          (direction, angle) => robot.turn(direction, angle)
+        );
+        const forward = interpreter.createNativeFunction(
+          (distance) => robot.foward(distance);
+        )
+        ...
+        interpreter.setProperty(scope, 'turn', turn);
+        interpreter.setProperty(scope, 'forward', forward);
+        ...
+      }
+    );
   \end{lstlisting}
 \end{figure}
 
@@ -183,13 +188,13 @@ wird die Funktion immer nach Abschluss einer Aktion des Roboters oder wenn durch
 wurde.
 
 \begin{figure}
-  \label{interpreter-step}
-
   \caption{Vereinfachter Auszug aus der Schritt-Funktion zum Ausführen des Strategie-Codes, sowie
   beispielhafte Ausschnitte aus der Roboter-Klasse und dem Gameloop, die Aufrufe der
   Schritt-Funktion zeigen. Durch den Aufruf von interpreter.step() wird eine Methode des Roboters
   aufgerufen. Dieser setzt isIdle auf false, wodurch die Ausführung der Strategie unterbrochen wird.
   Am Ende der Aktion wird isIdle wieder auf true gesetzt, und die Strategieausführung fortgesetzt.}
+
+  \label{interpreter-step}
 
   \begin{lstlisting}
     // StrategyInterpreter
@@ -277,30 +282,28 @@ werden diese vom Strategie-Interpreter aufgerufen.
 
 \section{Anpassung der Architektur für den Open Stage-Modus}
 
+Zur Implementation des Open Stage-Modus mussten einige Anpassungen an der Architektur vorgenommen
+werden (Abb. \ref{architektur}). Um die Erstellung und Gestaltung der erweiterten Statusleiste,
+Toolbar und besonders der vielzäligen neuen Menüs zur Auswahl des Spielmodus und der Erstellung von,
+Verwaltung von, Partizipation an und Ausführung von Turnieren zu vereinfachen, wurden diese in HTML
+anstatt in Phaser implementiert. Um die stark gesteigerte Komplexität des Programms im Zuge der
+gesteigerten Anzahl der Dialoge, des neuen Spielmodus, des erweiterten Strategieeditors, der
+erweiterten Statusleiste und dem dynamischen Laden und Speichern von Daten über den Server auf
+wartbare Weise zu unterstützen, wurde ein Zustandsmanagement sowie ein System zur effizienten
+Darstellung von HTML-Komponenten eingeführt. Bestehende Komponenten wurden umstrukturiert und
+voneinander entkoppelt, um die Implementation neuer Features zu vereinfachen.
+
 \begin{figure}
   \label{architektur}
 
-  \caption{Die Architektur des ctGameStudio nach Einführung des Open
-  Stage-Modus. Phaser-Spielobjekte sind rot und HTML-Komponenten grün
-  hervorgehoben. Durchgezogene Linien zeigen Beziehungen zwischen Komponenten
-  und Subkomponenten, wobei die Komponente die Subkomponente erstellt, besitzt,
-  oder einbindet. Gestrichelte Linien zwischen Komponenten zeigen
-  Abhängigkeiten, so dass eine Komponente die andere referenziert und
-  Funktionen der Komponente aufruft.}
+  \caption{Die Architektur des ctGameStudio nach Einführung des Open Stage-Modus.
+  Phaser-Spielobjekte sind rot und HTML-Komponenten grün hervorgehoben. Durchgezogene Linien zeigen
+  Beziehungen zwischen Komponenten und Subkomponenten, wobei die Komponente die Subkomponente
+  erstellt, besitzt, oder einbindet. Gestrichelte Linien zwischen Komponenten zeigen Abhängigkeiten,
+  so dass eine Komponente die andere referenziert und Funktionen der Komponente aufruft.}
 
   \includegraphics{figures/architektur.pdf}
 \end{figure}
-
-Zur Implementation des Open Stage-Modus mussten einige Anpassungen an der Architektur vorgenommen
-werden (Abb. \ref{architektur}). Um die Erstellung und Gestaltung der erweiterten Statusleiste, Toolbar und besonders der
-vielzäligen neuen Menüs zur Auswahl des Spielmodus und der Erstellung von, Verwaltung von,
-Partizipation an und Ausführung von Turnieren zu vereinfachen, wurden diese in HTML anstatt in Phaser
-implementiert. Um die stark gesteigerte Komplexität des Programms im Zuge der gesteigerten Anzahl
-der Dialoge, des neuen Spielmodus, des erweiterten Strategieeditors, der erweiterten Statusleiste
-und dem dynamischen Laden und Speichern von Daten über den Server auf wartbare Weise zu
-unterstützen, wurde ein Zustandsmanagement sowie ein System zur effizienten Darstellung von
-HTML-Komponenten eingeführt. Bestehende Komponenten wurden umstrukturiert und voneinander
-entkoppelt, um die Implementation neuer Features zu vereinfachen.
 
 Einzelne Komponenten wurden in native Javascript-Module übersetzt. Nun werden Abhängigkeiten
 zwischen Modulen über import-Statements explizit ausgedrückt. Anstatt alles auf einen globalen
@@ -311,7 +314,7 @@ Variablen einer Komponente von anderen Komponenten benutzt oder verändert werde
 
 Das ctGameStudio mit Open Stage-Modus braucht die Möglichkeit, aufgrund des Programmzustands
 HTML-Komponenten dynamisch darzustellen. Mithilfe der
-hyperHTML\ref{https://viperhtml.js.org/}-Bibliothek wurden Komponenten konzipiert, die ineinander
+hyperHTML\footnote{https://viperhtml.js.org/}-Bibliothek wurden Komponenten konzipiert, die ineinander
 verschachtelt werden können, deren HTML und Event-Listener deklarativ ausgedrückt werden, und
 effizient gerendert und aktualisiert werden können.
 
@@ -324,69 +327,78 @@ dieser Koordination ein Modell des Programmzustands.
 
 Als Programmzustand werden hier die Parameter bezeichnet, die bestimmen, welche Komponenten
 gerendert werden und welche Daten diese darstellen. In der App wird er durch ein unveränderliches
-Javascript-Objekt modelliert (\ref{state-model}). Das Objekt ist unveränderlich
-(\enquote{Immutable}), so dass sein Inhalt nie direkt im Speicher geändert werden kann. Soll der
-Zustand geändert werden, muss eine Kopie dessen angelegt werden. Dieses System sorgt dafür, dass
-keine Komponente, die eine Referenz auf den Zustand hat, diesen direkt für andere Komponenten ändern
-kann.
+Javascript-Objekt modelliert (Abb. \ref{state-model} zeigt einen beispielhaften Ausschnitt aus dem
+Zustandsobjekt, das Zustande kommt, wenn der Nutzer zu der Liste von seinen Turnieren navigiert). Das
+Zustandsobjekt ist unveränderlich (\enquote{Immutable}), so dass sein Inhalt nie direkt im Speicher
+geändert werden kann. Soll der Zustand geändert werden, muss eine Kopie dessen angelegt werden.
+Dieser Schutz sorgt dafür, dass keine Komponente, die eine Referenz auf den Zustand hat, diesen
+direkt für andere Komponenten ändern kann.
 
 Änderungen des Zustands finden ausschließlich im Main-Modul statt, und müssen von Komponenten
 explizit über das versenden von \enquote{Actions} herbeigeführt werden (Abb.
-\ref{update-loop-diagram}). Die update-Funktion (Abb. \ref{update-loop}) ist dafür zuständig,
+\ref{update-loop-diagram}). Die Update-Funktion (Abb. \ref{update-loop}) ist dafür zuständig,
 aufgrund einer Action einen neuen Zustand zu bauen. Auf die Aktualisierung des Zustands folgt die
-Darstellung des neuen Zustands mithilfe der render-Funktion. Sie erhält den Programmzustand und gibt
+Darstellung des neuen Zustands mithilfe der Render-Funktion. Sie erhält den Programmzustand und gibt
 einr Struktur aus hyperHTML-Elementen zurück. Mithilfe von hyperHTML wird diese in das DOM
-eingefügt. Bei wiederholter Darstellung der Struktur aufgrund von Veräderungen des Zustands nimmt
+eingefügt. Bei wiederholter Darstellung der Struktur aufgrund von Veränderungen des Zustands nimmt
 die Bibliothek nur die minimalen Änderungen am DOM vor, die nötig sind, um die veränderte Struktur
-darzustellen. So ist es möglich, bei jeder Zustandsaktualisierung die render-Funktion auszuführen,
-ohne das DOM komplett neu zu konstruieren und durch den Browser darzustellen.
+darzustellen. So ist es möglich, die Render-Funktion bei jeder Zustandsaktualisierung komplett
+auszuführen, ohne das DOM dabei komplett neu zu konstruieren und durch den Browser darzustellen.
+Dadurch wird vermieden, in der Darstellungsebene komplizierte Logik zu brauchen, die bestimmt, wann
+und wie das DOM geändert wird.
 
 Dieses System ist dazu konzipiert, keine unvorgesehenen oder schlecht nachvollziehbaren Änderungen
 des Programmzustands zu haben. Durch die explizite Änderung durch Actions ist immer sichtbar, wann
-und wie sich der Zustand verändert hat. Bei Programmfehlern ist leicht nachvollziehbar, an welcher
-Stelle ein unkorrekter Zustand gebildet wurde. Durch die explizite Modellierung des Zustands, der
-Actions und der Aktualisierung des Zustands in Form der Update-Funktion ist übersichtlich zu sehen,
-welche Formen der Zustand annehmen kann. Diese Informationen werden im AppState-Modul gebündelt.
+und wie sich der Zustand verändert hat. Die Business- und Darstellungs-Logik ist in zustandslosen
+und damit einfach zu testenden Funktionen hinterlegt (Update- und Render-Funktion). Bei
+Programmfehlern ist leicht nachvollziehbar, ob der Fehler in der Darstellung liegt, oder ob ein
+unkorrekter Zustand gebildet wurde. Durch die explizite Modellierung des Zustands, der Actions und
+der Aktualisierung des Zustands in Form der Update-Funktion ist übersichtlich zu sehen, welche
+Formen der Zustand annehmen kann.
 
 
 \begin{figure}
   \caption{Ausschnitt aus dem Zustandsmodell.}
 
-  \ref{state-model}
+  \label{state-model}
 
   \begin{lstlisting}
-    // AppState-Modul
-    const initialState = Immutable({
-      selectedStrategyId: 'default',
-      selectedEnemyStrategyId: 'default',
-      strategies: [],
-      view: VIEW_MENU,
-      currentMenu: MENU_MAIN,
-      menuHistory: [],
-      roboProgrammerExtended: false,
-      tournamentsList: {
-        isLoading: true,
-        success: false,
-        failureReason: '',
-        tournaments: []
-      }
+{
+  view: VIEW_MENU,
+  currentMenu: MENU_TOURNAMENT_LIST,
+  tournamentsList: {
+    isLoading: false,
+    success: true,
+    tournaments: [
+      {
+        "_id":"xxxxx",
+        "accessCode": "1OVkM",
+        "createdBy": "5acf147740f1e526a82c21ea",
+        "publishedDate": "2018-07-29T18:55:16.995Z",
+        "maxMatchDuration": 120,
+        "maxRoundCount": 1,
+        "mode":"TOURNAMENT_MODE_ROUND_ROBIN",
+      },
       ...
-  });
+    ]
+  },
+  ...
+}
   \end{lstlisting}
 \end{figure}
 
 \begin{figure}
   \caption{Darstellung und Aktualisierung des Spiels.}
 
-  \ref{update-loop-diagram}
+  \label{update-loop-diagram}
   
   \includegraphics{figures/statemanagement-flow.pdf}
 \end{figure}
 
 \begin{figure}
-  \ref{update-loop}
-
   \caption{Vereinfachter Auszug des Codes zur Darstellung und Aktualisierung des Spiels.}
+
+  \label{update-loop}
 
   \begin{lstlisting}
   let state;
@@ -427,25 +439,102 @@ welche Formen der Zustand annehmen kann. Diese Informationen werden im AppState-
   function update (state, action, params) {
     switch (action) {
       case ACTION_INITIALIZE: return initialState;
-      case ACTION_OPEN_STORY_MENU: return state.set('currentMenu', MENU_STORY);
-      // ...
+      case ACTION_OPEN_STORY_MENU:
+        return state.set('currentMenu', MENU_STORY);
+      ...
     }
   }
   \end{lstlisting}
 \end{figure}
 
-Das beschriebene Zustandsmanagement lässt sich nicht auf Phaser übertragen. Wie in \ref{arena-alt}
-beschrieben, arbeitet Phaser mit regulären, veränderbaren Javascript-Objekten und einem eigenen
-Update/Render-Loop. Daher wird die Arena-Komponente nicht bei jeder Aktion neu dargestellt, sondern
-bei Start des Trainings oder Start eines Turnierkampfes einmal initialisiert. Zustand, der sowohl
-die Arena als auch den Rest des Spiels betrifft, ist doppelt im System repräsentiert; einmal im
-Programmzustand und einmal in den Spielobjekten der Arena. Über ein Event-Interface der
-Arena-Komponente werden die beiden Zustände synchronisiert. Ein Beispiel soll anhand der
-Lebenspunktzahl der Roboter gegeben werden. Einerseits wird sie im Roboter-Spielobjekt des Roboters
-gespeichert und bei Treffern verändert. Andererseits wird auch im Programmzustand dieser Wert
-gespeichert, um die Lebenspunkte in der Statusbar, die eine HTML-Komponente ist, anzuzeigen. Um die
-Werte zu synchroniesieren, wird bei Treffer eines Roboters ein Ereignis ausgelöst. Dieses Ereignis
-wird in eine Aktion transformiert, die dann den Programmzustand ändert.
+Das beschriebene Zustandsmanagement lässt sich nicht auf Phaser übertragen. Wie in Abschnitt
+\ref{arena-alt} beschrieben, arbeitet Phaser mit regulären, veränderbaren Javascript-Objekten und
+einem eigenen Update/Render-Loop. Daher wird die Arena-Komponente nicht bei jeder Aktion neu
+dargestellt, sondern bei Start des Trainings oder Start eines Turnierkampfes einmalig initialisiert.
+Zustand, der sowohl die Arena als auch den Rest des Spiels betrifft, ist doppelt im System
+repräsentiert; einmal im Programmzustand und einmal in den Spielobjekten der Arena. Über ein
+Event-Interface der Arena-Komponente werden die beiden Zustände synchronisiert. Ein Beispiel soll
+anhand der Lebenspunktzahl der Roboter gegeben werden. Einerseits wird sie im Roboter-Spielobjekt
+des Roboters gespeichert und bei Treffern verändert. Andererseits wird auch im Programmzustand
+dieser Wert gespeichert, um die Lebenspunkte in der Statusbar, die eine HTML-Komponente ist,
+anzuzeigen. Um die Werte zu synchroniesieren, wird bei Treffer eines Roboters ein Ereignis
+ausgelöst. Dieses Ereignis wird in eine Aktion transformiert, die dann den Programmzustand ändert.
+
+
+\subsection{Datenpersistenz}
+
+Der ctGameStudio-Server unterstützt MongoDB für die Persistenz von Daten. Mithilfe von KeystoneJS
+werden JSON-Rest-APIs bereit gestellt, über die Daten gespeichert und geladen werden. Dazu können
+Schemas definiert werden, die die Struktur und Datentypen eines Modells festlegen, und zur
+Validation der Daten benutzt werden.
+
+In der Erstversion des ctGameStudio bereits verfügbar war das Nutzermanagement, welches das Einloggen und
+Personalisieren der der Spielinhalte ermöglicht, und eine JSON-Rest-Endpunkt zum Loggen von
+Spielereignissen zur späteren Nachbereitung. Um den Open Stage-Modus zu unterstützen, mussten neue
+Endpunkte und Datenmodelle für Strategien, Turniere und Teilnahmen an Turnieren erstellt werden.
+
+Im ctGameStudio mit Open Stage-Modus werden Server-Anfragen werden durch Actions angestoßen, und im
+AppState-Modul abgehandelt. Nach der Antwort durch den Server werden wiederrum Actions angestoßen,
+um das User Interface zu aktualisieren. Dabei wird das Anfrageergebnis und der Anfragestatus im
+Programmzustand gespeichert. Dazu gehört die Information, ob die Anfrage gestartet wurde, ob sie
+abgeschlossen wurde, und ob sie erfolgreich oder fehlerhaft war. Diese Informationen werden benutzt,
+um im Dialog entsprechendes Feedback an den Nutzer zu geben.
+
+Abb. \ref{create-tournament-flow} stellt beispielhaft den Prozess dar, der beim Erstellen eines
+neuen Turniers abläuft. Aufgrund des initialen Zustands zeigt der Dialog das Turnierformular an
+(Schritt 1). Wenn der Nutzer den Button zur Erstellung des Turniers drückt, wird eine Aktion zum
+Starten der Anfrage ausgelöst (Schritt 2). Als Aktionsparamter werden die Turnieroptionen beigefügt,
+die der Nutzer eingestellt hat. Im Hintergrund wird die an den Turnier-Endpunkt mit den übergebenen
+Parametern gestartet. Der Dialog zeigt nun an, dass die Anfrage läuft. War das Speichern erfolgreich
+(Schritt 3a) wird der Programmzustand über eine entsprechende
+Action wird der Programmzustand aktualisiert, um dem Nutzer nun Feedback über das erfolgreiche
+Speichern zu geben, und den vom Server generierten Zugangscode anzeigen. Trat bei der Anfrage ein
+Fehler auf (Schritt 3b), wird über eine andere Action ausgelöst, welche den Programmzustand um die
+Fehlerinformation bereichert. Daraufhin kann im Dialog eine entsprechende Fehlermeldung angezeigt
+werden.
+ 
+\begin{figure}
+  \caption{Verlauf von Actions und dem Programmzustand beim Speichern eines Turnieres.}
+
+  \label{create-tournament-flow}
+
+  \begin{lstlisting}
+  1) Öffnen des Dialogs
+
+     -> Programmzustand: {
+       requestStarted: false
+     }
+
+  2) Action: CREATE_TOURNAMENT_REQUEST,
+     Parameter: { maxRoundDuration: 3, maxRoundCount: 1, ... }
+
+     -> Anfrage: POST /tournament
+
+     -> Programmzustand: {
+       requestStarted: true,
+       isLoading: true
+     }
+
+  3a) Action: CREATE_TOURNAMENT_SUCCESS
+       Parameter: { accessCode: 'xxxxxx' }
+
+     -> Programmzustand: {
+       requestStarted: true,
+       isLoading: false,
+       success: true,
+       accessCode: 'xxxxxx'
+     }
+
+  3b) Action: CREATE_TOURNAMENT_FAILURE
+
+     -> Programmzustand: {
+       requestStarted: true,
+       isLoading: false,
+       success: false,
+       failureReason: UNEXPECTED_SERVER_ERROR
+     }
+  \end{lstlisting}
+\end{figure}
 
 
 \subsection{Strategieinterpreter}
@@ -469,17 +558,21 @@ wiederholte Ausführung der Schritt-Funktion des JS-Interpreters mit einer while
 
 
 \begin{figure}
-  \label{strategy-interpreter-new}
-
   \caption{Vereinfachter Auszug aus dem PlayState und dem StrategyInterpreter, der die vereinfachte
   Strategieausführung verdeutlicht.}
+
+  \label{strategy-interpreter-new}
 
   \begin{lstlisting}
     // PlayState
     function create () {
       ...
-      player1Interpreter = StrategyInterpreter(player1StrategyCode, player1Robot);
-      player2Interpreter = StrategyInterpreter(player2StrategyCode, player2Robot);
+      player1Interpreter = StrategyInterpreter(
+        player1StrategyCode, player1Robot
+      );
+      player2Interpreter = StrategyInterpreter(
+        player2StrategyCode, player2Robot
+      );
       ...
     }
 
@@ -509,8 +602,6 @@ wiederholte Ausführung der Schritt-Funktion des JS-Interpreters mit einer while
     }
     ...
   \end{lstlisting}
-
-  \includegraphics{figures/blockly_configuration_turn.png}
 \end{figure}
 
 
@@ -551,9 +642,10 @@ dem Scanergebnis arbeiten, wurde angepasst, um mit dem Objekt arbeiten zu könne
 Scan-Methode zurück gegeben wird.
 
 
-\subsection{Turnierausführung}
+\section{Turnierausführung}
+
+TODO
+% Zu Beginn der Ausführung eines Turniers wird die Matchstruktur kalkuliert. Bei einem Turnier
+% Jeder-gegen-Jeden (engl. round robin) werden dazu Paare aus 
 
 
-\section{Datenmodell und Client-Server-Kommunikation}
-
-- Strategien, Turnier, Teilnahmen - RESTful API
