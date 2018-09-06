@@ -1,53 +1,150 @@
 \chapter{Ansatz}
 
 Im Storymodus des ctGameStudios lernen Schüler grundlegende Konzepte der Programmierung wie
-Schleifen, Verzweigungen, Ereignisse, Prozeduren und Funktionen kennen. In einer Erweiterung des
-Spiels sollen sie nun die Möglichkeit haben, die erlenten Fähigkeiten anzuwenden. Dabei sollte 
+Schleifen, Verzweigungen, Ereignisse, Prozeduren und Funktionen kennen. Der Storymodus ist in sich
+geschlossen, da er einen festen Anfang und Ende hat, und im vornherein festgelegte, spezifische
+Herausforderungen stellt.
+
+Wir wollen das ctGameStudio erweitern, um Spielern die Möglichkeit und die Motivation dazu zu geben,
+die im Storymodus gelernten Fähigkeiten anzuwenden und zu trainieren. Im Gegensatz zum Storymodus
+soll dieser Spielmodus offen sein, so dass der Spieler seine Herausforderungen und Lösungsansätze
+selbst bestimmen kann. Damit wiederholtes Spielen motiviert wird und die eigene Kreativiät gefördert
+wird, sollen Herausforderungen durch sich selbst oder andere generiert werden können. 
+
+Ein offener Spielmodus stellt die Fähigkeit in den Vordergrund, Problemstellungen zu analysieren,
+und adäquate Problemlösestrategien zu entwickeln. Dadurch werden speziell die CT-Fähigkeiten der
+Abstraktion und der Evaluation gefördert.
+
+Inspiriert vom RoboCode und angelehnt an das letzte Level des Storymodus soll dieser Spielmodus aus
+einem Roboterkampf bestehen. Es gilt, eine Strategie zu entwickeln, um die Strategie des Gegners zu
+überwinden.
 
 \section{Ein Lernszenario}
 
-Siehe Folien. Kontext: Informatikunterricht.
+Das Spiel soll solche Schüler unterstützen, die die Grundlagen der Programmierung kennen lernen und
+ausbauen sollen. Der Kernlehrplan Informatik für Gymnasien und Gesamtschule in der Sekundarstufe II
+(\cite{SchulministeriumNRW2014}) legt dar, welche Kompetenzen ausgebildet und Inhalte
+thematisiert werden sollen. Im Fokus soll das Inhaltsfeld der Algorithmen stehen, welches im
+Lehrplan als "genaue Beschreibung zur Lösung eines Problems" (S. 17) definiert ist. Dies entspricht
+der Entwicklung von Problemlösestrategien in der Roboter-Mikrowelt des ctGameStudio.
 
-1. Schüler spielen Storymodus um Grundlagen zu lernen,
-2. Schüler spielen Strategie-Traningsmodus um Erlentes anzuwenden und zu verbessern,
-3. Lehrer erstellt Turnier und Schüler melden sich mit ihrerer Strategie an,
-4. Turnier wird ausgeführt und die Spiele analysiert
-5. Schüler verbessern ihre Strategien (Gewinnstrategie im Training verfügbar?), erneutes Turnier
+Folgendes Lernszenario soll darstellen, wie das Spiel die Ziele des Lehrplans unterstützt und in den
+Unterricht eingebunden werden kann.
 
-\section{Anforderungsanalyse}
+Um die Grundlagen des Spiels sowie die zur Entwicklung von Problemlösestrategien nötigen
+Programmierkonzepte kennen zu lernen, spielen Schüler zunächst den Storymodus des ctGameStudio.
+Durch Bearbeiten der Level des Storymodus werden die inhaltlichen Schwerpunkte der Analyse, Entwurf
+und Implementierung einfacher Algorithmen (S. 23) unterstützt, und anhand dessen die Kompetenzen des
+Argumentierens, der Modellierung, der Implementation, des Darstellen und Interpretieren und
+Kommunizieren und Kooperieren gefördert.
 
-Welche Aspekte von CT werden noch nicht vom CT Game Studio unterstützt,
+Mit dem offenen Spielmodus werden die erlenten Kompetenzen vertieft. In Kämpfen zwischen dem eigenen
+gegen einen Gegnerroboter entwickeln die Schüler eigene Kampfstrategien. Dabei können sie die
+Gegnerstrategie aus eigenen oder vorgefertigten Strategien festlegen, um eine generell anwendbare,
+gegen viele Herausforderungen effektive Strategie zu entwickeln. Nachdem die Schüler eine oder
+mehrere Strategien entwickelt haben, kann der Lehrer ein Turnier veranstalten, in dem die Strategien
+gegeneinander ausgespielt werden. Das Turnier wird an einem gemeinesamen Bildschirm oder Projektion
+verfolgt, und liefert eine Diskussionsgrundlage um Strategien gemeinsam zu analysieren und
+evaluieren. (Auch hier Kompetenz des Kommunizieren, blabla). In weiteren Durchgängen können Schüler
+ihre Strategie verbessern, und weitere Turniere veranstaltet werden.
 
-z.B. Evaluation, Kreislauf, selber dem Gegnerroboter Strategie auswählen
 
-Anforderungen aus Szenario und Litaratur extrahieren
+\section{Offener Spielmodus: RoboStrategist}
 
-\section{Offener Spielmodus}
+Kern des offenen Spielmodus ist der Kampf zwischen zwei Robotern, die vorprogrammierte Strategien
+ausführen, mit dem Ziel, den Gegner zu bezwingen. Im Trainingsmodus kann der Spieler eigene
+Strategien entwickeln, während der Turniermodus eine Plattform dafür bietet, verschiedene Strategien
+gegeneinander zu evaluieren.
+
+Die Roboter eine begrenzte Zahl von Lebenspunkten. Durch Schüsse auf den Gegner können diese
+Lebenspunkte reduziert werden. Die Fähigkeiten des Roboters basieren auf der Bewegungssemantik, die
+für den Storymodus des ctGameStudio entwickelt wurden.
+
+\todo{bewegen in ctGameStudio Abschnitt in den Grundlagen?}
+
+\begin{itemize}
+\item Positionierung auf dem Spielfeld durch die Bewegung um eine Distanz oder bis zu einem Punkt
+auf der x- und y-Achse, der Bewegung bis die Wand oder der Gegner berührt wurde, dem Drehen um einen
+Winkel, und dem Drehen, um einen Punkt anzupeilen.
+\item Angriff durch Abgeben eines Schusses in Blickrichtung.
+\item Das Ausfinden machen des Gegners durch einen Scanvorgang in eine Richtung um den nächsten Gegner
+  zu finden, der sich in dieser Richtung befindet. Wurde ein Gegner gefunden, kann die Distanz und
+  Winkel zum ihm und seine Position gelesen werden.
+\item Feststellen von Ereignissen, wie der Fall ob man getroffen wurde, oder ob man mit der Wand oder dem
+Gegner kollidiert ist.
+\item Lesen der eigenen Attribute, darunter die Position auf dem Spielfeld und die Anzahl an
+verbleibenden Lebenspunkten.
+\end{itemize}
+
+Anhand dieser Aktionen und der Blockly-Programmiersprache werden die Kampfstrategien gebaut. Im
+Verlauf der Entwicklung einer Strategie entwickelt der Spieler kampfbezogene Abstraktionen (?) wie die
+strategische Positionierung und Bewegung auf dem Spielfeld um sich nicht finden zu lassen, dem
+Ausweichen, nach dem man getroffen wurde, dem Ausfindig machen des Gegners, das Verfolgen des
+Gegners nachdem man ihn gefunden hat, und der Angriff. ~~Je besser er diese löst, desto
+wahrscheinlicher ist, dass die Strategie erfolgreich ist~~.
+
+
+\subsection{Trainingsmodus}
+
+-> Der Trainingsmodus fördert eigenständiges, selbst-geleitetes Vorgehen beim Bauen von
+Kampfstrategien.- Die selbst-geleitete Problemstellung und Prozess fördert die Fähigkeit der Evaluation
+- Zum Einen werden durch komplexe Herausforderungen in Form von unterschiedlichen Gegnerstrategien wird eigenständige
+Problemlösung gefördert, und die Programmierfähigkeit damit stärker vertieft.
+- Zum Anderen soll Kreativität und Exploration des Spieler gefordert werden, in dem er selbst
+auswählt, gegen welche Strategien er kämpft. Dabei soll aus vorgefertigten und selbst gebauten
+Strategien ausgewählt können.
+- Angelehnt an die letzten beiden Level des Storymodus werden alle CT-Fähigkeiten benötigt und
+ausgebildet. Gesamte Strategie bildet ein Algorithmus (Initiale Positionierung, Endlosschleife, usw.) mit 
+  - z.B. Verfolgen und Angreifen umsetzen in dem man ein einer Schleife scan + schießen + neu orientieren falls Roboter nicht mehr in Sicht + ...)
+- Prozess der Entwicklung bei erstem Öffnen des Trainingsmodus
+  1. Die initial geladenene Gegnerstrategie wird ausgeführt (Bonus: Man hat direkt einen Startpunkt
+  und weiß wo man anfangen kann...)
+  2. Man analysiert die Gegnerstrategie und bildet erste Lösungsansätze (Der Gegner ist .
+  3. Man formuliert und implementiert erste Lösungsansätze. Man kann auf das Wissen aus den letzten
+  Leveln des Storymodus zurückgreifen, um einen ersten Anhaltspunkt dafür zu haben.
+  4. Man führt den Kampf aus und analysiert seinen Verlauf
+    - Macht der Roboter das, was ich mit dem Programm erzielen wollte?
+    - Führt mein Problemansatz zu Erfolg?
+  5. Aufgrund der Analyse verbessert der Spieler seine Strategie.
+  6. Schritt 4 und 5 werden wiederholt, bis das Erfolgskriterium erreicht ist.
+  7. Der Spieler wählt eine neue Gegnerstrategie, um seine Strategie an einer neuen Strategie zu
+  testen.
+  8. Schritt 4 bis 7 werden wiederholt, bis der Spieler alle Gegnerstrategien bezwungen hat und mit
+  seiner Strategie zufrieden ist.
+  9. Der Spieler kann außerdem versuchen, seine eigene Strategie zu besiegen, in dem er sie als
+  Gegnerstrategie festlegt.
+- Um verschiedene Strategieansätze ausprobieren zu können, kann der Spieler seine Strategien
+speichern, kopieren, neue anlegen, und zwischen diesen wechseln.
+- Die Umgebung ermöglicht iteratives Vorgehen (Papert Sprache?).
+
 
 - Was wollen wir mit einem offenen Spielmodus erreichen?
-  - Herausforderungen bieten, die an die Fähigkeiten anknüpfen, die man im Storymodus lernt,
-    also CT-Fähigkeiten fordert und fördert, so dass ein intelligenter Einsatz dieser Fähigkeiten zu größerem Erfolg führt
-  - Fortgeführter Spielspaß nach Beenden des Storymodus
-  (- Einbettung in Unterrichtsszenarios, so dass das Spiel einerseits Lernen im Einzelunterricht und Evaluation in der Gruppe unterstützt)
-- Inspiriert von RoboCode soll es ein Roboterkampf geben, so dass eine eigens entwickelte Strategie gegen eine gegnerische Antritt
-- Nutzen die Bewegungssemantik des Storymodus, um ein zugängliches und nachvollziehbares (computational model/medium/was ist es?) zu bieten, an dem sich Schüler ihre Fähigkeiten auf iterative Weise ausbilden können (->Papert bilden einer Sprache)
-- In der Mikrowelt können Abstraktionen entwickelt werden, die einen erfolgreichen Roboterkampf ausmachen, z.B. Ausfinden machen des Gegners, Zielen und Angreifen, strategisch wirksame Positionen einnehmen, den Gegner verfolgen, Ausweichen, Verhalten verändern aufgrund veränderter Spielsituationen
 - Das Entwickeln einer Strategie, bzw. die Umsetzung dieser Abstraktionen erfordert andere CT-Fähigkeiten wie Aufspaltung (z.B. Ausweichen = Treffer feststellen + neue Position einnehmen) in und Algorithmisches Denken
-  - Gesamte Strategie bildet ein Algorithmus (Initiale Positionierung, Endlosschleife, usw.) mit 
-  - z.B. Verfolgen und Angreifen umsetzen in dem man ein einer Schleife scan + schießen + neu orientieren falls Roboter nicht mehr in Sicht + ...)
+  - 
 - Der Gegner-Roboter ist zum einen ein motivierender Faktor aufgrund des Wettbewerbs ("Ich muss überleben/will besser sein"),
   zum anderen ein Spiegelbild des eigenen Roboters und damit Evaluationssubjekt ("Um mich zu verteidigen muss ich verstehen was er macht" und anhand des Gegners sehen wie man selbst vorgehen kann)
 - Community-Aspekt durch Turniermodus: Evaluation gegen andere Mitschüler, zusätzliche Motivation -> "besser als meine Mitschüler sein", sich unbekannten Herausforderungen stellen
 
 \subsection{Gameplay}
 
-- Ein zweiter Roboter + zweite Lebensanzeige muss hinzu gefügt werden
-- Ziel: Bessere/überlegtere Strategien sollen sich auch im Matchergebnis niederschlagen
+- Ziel: Bessere/überlegtere Strategien sollen sich auch im Matchergebnis niederschlagen, ein intelligenter Einsatz der Programmierfähigkeiten führt zu größerem Erfolg führt
 - Verschiedene Ansätze sollen zum Erfolg führen können, z.B. effizientes Ausweichen/Positionieren, oder besonders raffiniertes Verfolgen
-- Stand zuvor: Sehr schnelle Bewegungen und Scanvorgang ermöglichen dies nicht und erschweren Evaluation (was passiert)
-- Verlangsamung der Bewegungen, Scanvorgang muss sich ausbreiten
-
-\subsection{Trainingsmodus}
+- Eval
 
 
 \subsection{Turniermodus}
+      
+\section{Anforderungsanalyse}
+
+- Trainingsmodus
+  - Gegnerstrategien auswählen (vorgegebene und eigene)
+  - Strategiemanagement: Speichern, Laden, Bearbeiten
+- Turniermodus
+  - Verschiedene Modi (warum?)
+  - Verschiedene Optionen
+  - Teilnahme
+Welche Aspekte von CT werden noch nicht vom CT Game Studio unterstützt,
+
+z.B. Evaluation, Kreislauf, selber dem Gegnerroboter Strategie auswählen
+
+Anforderungen aus Szenario und Litaratur extrahieren
