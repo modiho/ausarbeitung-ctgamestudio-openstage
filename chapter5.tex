@@ -20,6 +20,8 @@ des Spiels basiert auf browser-seitig ausgeführtem HTML und CSS, und Javascript
 um mittels WebGL Spielelemente zu rendern.
 
 \begin{figure}
+  \includegraphics{figures/architektur-alt.pdf}
+
   \caption{Architektur des ctGameStudio in der Erstversion.
   Phaser-Spielobjekte sind rot hervorgehoben. Durchgezogene Linien zeigen
   Beziehungen zwischen Komponenten und Subkomponenten, wobei die Komponente die
@@ -28,8 +30,6 @@ um mittels WebGL Spielelemente zu rendern.
   referenziert und den internenen Zustand der Komponente verändert.}
 
   \label{architektur-alt}
-  
-  \includegraphics{figures/architektur-alt.pdf}
 \end{figure}
 
 Komponenten sind als als Javascript-Funktionen, Objekte oder Klassen definiert. Während eine
@@ -64,10 +64,6 @@ Block generierte Code ist ein Funktionsaufruf, der im Aufruf einer Methode des R
 resultiert (z.B. Abb. \ref{block-configuration}, Zeile 18).
 
 \begin{figure}
-  \caption{Konfiguration eines Blocks}
-
-  \label{block-configuration}
-
   \begin{lstlisting}
     // Beschreibung des Blocks
     Blockly.Blocks.turn = {
@@ -103,6 +99,10 @@ resultiert (z.B. Abb. \ref{block-configuration}, Zeile 18).
   \end{lstlisting}
 
   \includegraphics{figures/blockly_configuration_turn.png}
+
+  \caption{Konfiguration eines Blocks}
+
+  \label{block-configuration}
 \end{figure}
 
 Die Programme, die mit dem Editor erstellt wurden, können als XML exportiert und importiert werden.
@@ -115,10 +115,6 @@ Zur Ausführung der Roboterstrategie wird eine Javascript-Version des Blockprogr
 \ref{code-generation}), und mit dem Strategieinterpreter ausgeführt.
 
 \begin{figure}
-  \caption{Eine Strategie als Blockly-Programm und der resultierende Code.}
-
-  \label{code-generation}
-
   \begin{lstlisting}
     while (true) {
       highlightBlock('x12%AV$');
@@ -129,6 +125,10 @@ Zur Ausführung der Roboterstrategie wird eine Javascript-Version des Blockprogr
   \end{lstlisting}
 
   \includegraphics{figures/code-generation-blockly.png}
+
+  \caption{Eine Strategie als Blockly-Programm und der resultierende Code.}
+
+  \label{code-generation}
 \end{figure}
 
 
@@ -151,11 +151,6 @@ definiert, die eine zugehörige Methode auf dem Roboter-Spielobjekt ausführt. (
 \ref{js-interpreter-init}).
 
 \begin{figure}
-  \caption{Initalisierung des JS-Interpreters mit Strategie-Code, und der API zur Steuerung des
-  Roboters.}
-
-  \label{js-interpreter-init}
-
   \begin{lstlisting}
     const strategyCode = Blockly.JavaScript.workspaceToCode(workspace);
     const interpreter = new JSInterpreter(
@@ -174,6 +169,11 @@ definiert, die eine zugehörige Methode auf dem Roboter-Spielobjekt ausführt. (
       }
     );
   \end{lstlisting}
+
+  \caption{Initalisierung des JS-Interpreters mit Strategie-Code, und der API zur Steuerung des
+  Roboters.}
+
+  \label{js-interpreter-init}
 \end{figure}
 
 Bei Ausführung der Strategie wird der Strategiecode in den Interpreter geladen. Dieser stellt dann
@@ -191,14 +191,6 @@ wird die Funktion immer nach Abschluss einer Aktion des Roboters oder wenn durch
 wurde.
 
 \begin{figure}
-  \caption{Vereinfachter Auszug aus der Schritt-Funktion zum Ausführen des Strategie-Codes, sowie
-  beispielhafte Ausschnitte aus der Roboter-Klasse und dem Gameloop, die Aufrufe der
-  Schritt-Funktion zeigen. Durch den Aufruf von interpreter.step() wird eine Methode des Roboters
-  aufgerufen. Dieser setzt isIdle auf false, wodurch die Ausführung der Strategie unterbrochen wird.
-  Am Ende der Aktion wird isIdle wieder auf true gesetzt, und die Strategieausführung fortgesetzt.}
-
-  \label{interpreter-step}
-
   \begin{lstlisting}
     // StrategyInterpreter
     function step() {
@@ -230,6 +222,14 @@ wurde.
       ...
     }
   \end{lstlisting}
+
+  \caption{Vereinfachter Auszug aus der Schritt-Funktion zum Ausführen des Strategie-Codes, sowie
+  beispielhafte Ausschnitte aus der Roboter-Klasse und dem Gameloop, die Aufrufe der
+  Schritt-Funktion zeigen. Durch den Aufruf von interpreter.step() wird eine Methode des Roboters
+  aufgerufen. Dieser setzt isIdle auf false, wodurch die Ausführung der Strategie unterbrochen wird.
+  Am Ende der Aktion wird isIdle wieder auf true gesetzt, und die Strategieausführung fortgesetzt.}
+
+  \label{interpreter-step}
 \end{figure}
 
 
@@ -297,7 +297,7 @@ Darstellung von HTML-Komponenten eingeführt. Bestehende Komponenten wurden umst
 voneinander entkoppelt, um die Implementation neuer Features zu vereinfachen.
 
 \begin{figure}
-  \label{architektur}
+  \centering
 
   \caption{Die Architektur des ctGameStudio nach Einführung des Open Stage-Modus.
   Phaser-Spielobjekte sind rot und HTML-Komponenten grün hervorgehoben. Durchgezogene Linien zeigen
@@ -305,7 +305,9 @@ voneinander entkoppelt, um die Implementation neuer Features zu vereinfachen.
   erstellt, besitzt, oder einbindet. Gestrichelte Linien zwischen Komponenten zeigen Abhängigkeiten,
   so dass eine Komponente die andere referenziert und Funktionen der Komponente aufruft.}
 
-  \includegraphics{figures/architektur.pdf}
+  \includegraphics[scale=0.8]{figures/architektur.pdf}
+
+  \label{architektur}
 \end{figure}
 
 Einzelne Komponenten wurden in native Javascript-Module übersetzt. Nun werden Abhängigkeiten
@@ -361,10 +363,6 @@ Formen der Zustand annehmen kann.
 
 
 \begin{figure}
-  \caption{Ausschnitt aus dem Zustandsmodell.}
-
-  \label{state-model}
-
   \begin{lstlisting}
 {
   view: VIEW_MENU,
@@ -388,21 +386,21 @@ Formen der Zustand annehmen kann.
   ...
 }
   \end{lstlisting}
+
+  \caption{Ausschnitt aus dem Zustandsmodell.}
+
+  \label{state-model}
 \end{figure}
 
 \begin{figure}
+  \includegraphics{figures/statemanagement-flow.pdf}
+
   \caption{Darstellung und Aktualisierung des Spiels.}
 
   \label{update-loop-diagram}
-  
-  \includegraphics{figures/statemanagement-flow.pdf}
 \end{figure}
 
 \begin{figure}
-  \caption{Vereinfachter Auszug des Codes zur Darstellung und Aktualisierung des Spiels.}
-
-  \label{update-loop}
-
   \begin{lstlisting}
   let state;
   let root = document.querySelector('#app');
@@ -448,6 +446,10 @@ Formen der Zustand annehmen kann.
     }
   }
   \end{lstlisting}
+
+  \caption{Vereinfachter Auszug des Codes zur Darstellung und Aktualisierung des Spiels.}
+
+  \label{update-loop}
 \end{figure}
 
 Das beschriebene Zustandsmanagement lässt sich nicht auf Phaser übertragen. Wie in Abschnitt
@@ -497,10 +499,6 @@ Fehlerinformation bereichert. Daraufhin kann im Dialog eine entsprechende Fehler
 werden.
  
 \begin{figure}
-  \caption{Verlauf von Actions und dem Programmzustand beim Speichern eines Turnieres.}
-
-  \label{create-tournament-flow}
-
   \begin{lstlisting}
   1) Öffnen des Dialogs
 
@@ -537,6 +535,10 @@ werden.
        failureReason: UNEXPECTED_SERVER_ERROR
      }
   \end{lstlisting}
+
+  \caption{Verlauf von Actions und dem Programmzustand beim Speichern eines Turnieres.}
+
+  \label{create-tournament-flow}
 \end{figure}
 
 
@@ -561,11 +563,6 @@ wiederholte Ausführung der Schritt-Funktion des JS-Interpreters mit einer while
 
 
 \begin{figure}
-  \caption{Vereinfachter Auszug aus dem PlayState und dem StrategyInterpreter, der die vereinfachte
-  Strategieausführung verdeutlicht.}
-
-  \label{strategy-interpreter-new}
-
   \begin{lstlisting}
     // PlayState
     function create () {
@@ -605,6 +602,11 @@ wiederholte Ausführung der Schritt-Funktion des JS-Interpreters mit einer while
     }
     ...
   \end{lstlisting}
+
+  \caption{Vereinfachter Auszug aus dem PlayState und dem StrategyInterpreter, der die vereinfachte
+  Strategieausführung verdeutlicht.}
+
+  \label{strategy-interpreter-new}
 \end{figure}
 
 
@@ -641,5 +643,5 @@ erweitert, so dass der Scanstrahl aufgrund seiner Ausbreitung über die Zeit kon
 dargestellet wird, kontinuierlich festgestellt wird, ob ein Gegner durch den Strahl erfasst wurde,
 und der Scanvorgang beendet wird, wenn ein Roboter erfasst wurde, oder der Rand des Spielfelds, bzw.
 die angegebene Scanreichweite erreicht wurde. Der Code, der aus den Blöcken generiert wird, die mit
-dem Scanergebnis arbeiten, wurde angepasst, um mit dem Objekt arbeiten zu können, dass von der
+dem Scanergebnis arbeiten, wurde angepasst, um mit dem Objekt arbeiten zu können, das von der
 Scan-Methode zurück gegeben wird.

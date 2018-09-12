@@ -19,14 +19,15 @@ Inspiriert vom RoboCode und angelehnt an das letzte Level des Storymodus soll di
 einem Roboterkampf bestehen. Es gilt, eine Strategie zu entwickeln, um die Strategie des Gegners zu
 überwinden.
 
-\section{Ein Lernszenario}
+\section{Lernszenario}
 
 Das Spiel soll solche Schüler unterstützen, die die Grundlagen der Programmierung kennen lernen und
-ausbauen sollen. Der Kernlehrplan Informatik für Gymnasien und Gesamtschule in der Sekundarstufe II
-(\cite{SchulministeriumNRW2014}) definiert als Inhaltsfeld die Entwicklung von Algorithmen, welche
-als "genaue Beschreibung zur Lösung eines Problems" (S. 17) definiert werden. Dies entspricht
-der Entwicklung von Problemlösestrategien in der Roboter-Mikrowelt des ctGameStudio, und zeigt, dass
-das dieses Spiel die Anwendung in der Sekundarstufe II unterstützen sollte.
+ausbauen sollen. Der Kernlehrplan Informatik für Gymnasien und Gesamtschule in der Sekundarstufe
+II\footnote{Kernlehrplan Informatik für Gymnasien und Gesamtschule in der Sekundarstufe II:
+\cite{SchulministeriumNRW2014}} definiert als Inhaltsfeld die Entwicklung von Algorithmen, welche
+als "genaue Beschreibung zur Lösung eines Problems" (S. 17) definiert werden. Dies entspricht der
+Entwicklung von Problemlösestrategien in der Roboter-Mikrowelt des ctGameStudio, und zeigt, dass das
+dieses Spiel die Anwendung in der Sekundarstufe II unterstützen sollte.
 
 Folgendes Lernszenario soll darstellen, wie das Spiel die Ziele des Lehrplans unterstützt und in den
 Unterricht eingebunden werden kann.
@@ -82,6 +83,13 @@ Gegner immer wieder auffindet, und Schüsse in seine Richtung feuert. Dadurch, d
 Zielen auf den Roboter des Spielers besteht, muss die Lösungsstrategie nicht besonders effizient
 sein. Auch um die eigene Positionierung muss sich der Spieler keine Gedanken machen.
 
+\begin{figure}
+  \centering
+  \label{strategie-verwirrt}
+  \includegraphics[scale=1, keepaspectratio]{figures/strategy-verwirrt.png}
+  \caption{Blockly-Sicht der \enquote{Verwirrt}-Strategie}
+\end{figure}
+
 Die zweite Strategie, \enquote{Wandkrabbler} (Abb. \ref{strategie-wandkrabller}), agiert in einem
 vorsehbaren Muster. Der Roboter bewegt sich an am Spielfeldrand entlang und scannt in kleinen
 Abständen voneinander entgegengesetzt der Wand nach dem Gegner. Wurde dieser entdeckt, schießt er
@@ -91,7 +99,14 @@ Gegner zu verzögern und im Fall eines Treffers weiteren Schüssen auszweichen. 
 durch den Wandkrabbler erfordert auch einen effizienten Scanvorgang, so dass man den Gegner öfter
 und schneller auffindet und Schaden zufügt, als er es tut.
 
-Die dritte Strategie, \enquote{Eckenschütze} (Abb. \ref{strategie-wandkrabller}), ist die
+\begin{figure}
+  \centering
+  \label{strategie-wandkrabbler}
+  \includegraphics[scale=1, keepaspectratio]{figures/strategy-wandkrabbler.png}
+  \caption{Blockly-Sicht der \enquote{Wandkrabbler}-Strategie}
+\end{figure}
+
+Die dritte Strategie, \enquote{Eckenschütze} (Abb. \ref{strategie-sniper}), ist die
 gefährlichste aller Strategien. Zunächst hat sie den effizientesten Scanmechanismus. Dazu bewegt der
 Roboter sich zwischen den Ecken des Spielfelds, und scannt von den Ecken aus in kleinen Schritten
 das gesamte Spielfeld ab. So ist die Chance groß, innerhalb eines kurzen Zeitraums den Gegner
@@ -100,6 +115,14 @@ Position ändert. Die Strategie implementiert zudem einen Ausweichmechanismus, s
 nächste Ecke wechselt, wenn er getroffen wurde. Um diese Strategie zu besiegen erfordert ständige
 Bewegung auf dem Spielfeld, um den Scanvorgängen zu entgehen. Wahrscheinlich sollte sie ein eigenen
 Ausweichmechanimus implementieren, und einen effiziente Scanvorgang beinhalten.
+
+\begin{figure}
+  \centering
+  \label{strategie-sniper}
+  \includegraphics[scale=1, keepaspectratio]{figures/strategy-sniper-1.png}
+  \includegraphics[scale=1, keepaspectratio]{figures/strategy-sniper-2.png}
+  \caption{Blockly-Sicht der \enquote{Eckenschütze}-Strategie}
+\end{figure}
 
 Wie bereits vorgestellt sollte eine Mikrowelt nach Papert ein iteratives, selbst gesteuertes Vorgehen
 erlauben, um die inherente Kreativität und Explorationswillen des Menschen zu nutzen. In diesem
