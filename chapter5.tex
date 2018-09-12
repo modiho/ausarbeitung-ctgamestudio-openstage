@@ -115,7 +115,7 @@ Zur Ausführung der Roboterstrategie wird eine Javascript-Version des Blockprogr
 \ref{code-generation}), und mit dem Strategieinterpreter ausgeführt.
 
 \begin{figure}
-  \caption{Eine Strategie als Blockly-Programm und der resultierende Code. (TODO Bild des Programms einfügen)}
+  \caption{Eine Strategie als Blockly-Programm und der resultierende Code.}
 
   \label{code-generation}
 
@@ -127,6 +127,8 @@ Zur Ausführung der Roboterstrategie wird eine Javascript-Version des Blockprogr
       forward(100);
     }
   \end{lstlisting}
+
+  \includegraphics{figures/code-generation-blockly.png}
 \end{figure}
 
 
@@ -612,7 +614,7 @@ Da sich nun zwei Roboter auf dem Spielfeld befinden, musste entschieden werden, 
 zwischen diesen Robotern passiert. Um die Strategien in diesem Fall möglichst uneingeschränkt weiter
 laufen zu lassen, stoßen sich die die Roboter bei einer Berührung voneinander ab, und setzen ihre
 Bewegung fort. Umgesetzt wurde dies mit der Standard-Kollisionsfunktion der Phaser-Arcade-Physik
-\ref{https://photonstorm.github.io/phaser-ce/Phaser.Physics.Arcade.html#collide}.
+\footnote{https://photonstorm.github.io/phaser-ce/Phaser.Physics.Arcade.html\#collide}.
 
 Um die Evaluation seitens des Strategieentwicklers zu unterstützen, ist es sinnvoll, Roboteraktionen
 in einem langsamen, gut nachverfolgbaren Tempo auszuführen. Dabei soll das Gameplay spannend

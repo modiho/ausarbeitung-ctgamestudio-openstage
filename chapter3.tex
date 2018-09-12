@@ -58,11 +58,6 @@ effektiver Positionierung des Roboters auf dem Spielfeld, dem Ausweichen von Sch
 getroffen wurde, dem Ausfinding machen und Verfolgen des Gegners, und das Zielen und Schießen auf
 den Gegner.
 
-Im Training kann der Spieler eigene Strategien entwickeln. Verschiedene Strategien können im
-Turniermodus gegeneinander antreten.
-
-\todo{Unterbringen, dass die Startpostiionen von Robotern zufällig bestimmt werden.}
-
 
 \subsection{Training}
 
@@ -76,7 +71,8 @@ Gegnerstrategie evaluiert wird.
 Zum Anderen kann der Spieler eigenständig wählen, wie er bei der Entwicklung der
 Problemlösestrategie vorgeht, in dem er selbst wählt, gegen welche Strategien er seine Strategie
 testet. Im Rahmen dieser Arbeit sollen dafür dafür drei vorgefertigte Gegnerstrategien verfügbar
-sein. Die Strategien unterscheiden sich in ihren Ansätzen und ihrer Komplexität.
+sein. Die Strategien unterscheiden sich in ihren Ansätzen, ihrer Komplexität, und der Schwierigkeit,
+sie zu besiegen.
 
 Die erste Strategie, \enquote{Verwirrt}, (Abb. \ref{strategie-verwirrt}) ist dazu gestaltet, einen
 einfachen Einstieg in die Strategieentwicklung zu geben. Der Roboter bewegt sich in zufälligen
@@ -105,19 +101,19 @@ nächste Ecke wechselt, wenn er getroffen wurde. Um diese Strategie zu besiegen 
 Bewegung auf dem Spielfeld, um den Scanvorgängen zu entgehen. Wahrscheinlich sollte sie ein eigenen
 Ausweichmechanimus implementieren, und einen effiziente Scanvorgang beinhalten.
 
-Wie vorher gezeigt (? Bezug auf Papert), sollte eine Mikrowelt iteratives, selbst gesteuertes
-Vorgehen erlauben, um die inherente Kreativität und Explorationswillen des Menschen zu nutzen. In
-diesem Sinne wollen wir dem Spieler die Möglichkeit geben, als Gegnerstrategien neben den
-vorgefertigten auch selbst erstellte Strategien zu wählen. Um seine Strategie zu verbessern, könnte
-der Spieler durch Analyse Schwachpunkte seiner Strategie feststellen, und versuchen diese mit einer neuen
+Wie bereits vorgestellt sollte eine Mikrowelt nach Papert ein iteratives, selbst gesteuertes Vorgehen
+erlauben, um die inherente Kreativität und Explorationswillen des Menschen zu nutzen. In diesem
+Sinne wollen wir dem Spieler die Möglichkeit geben, als Gegnerstrategien neben den vorgefertigten
+auch selbst erstellte Strategien zu wählen. Um seine Strategie zu verbessern, könnte der Spieler
+durch eine Analyse Schwachpunkte seiner Strategie feststellen, und versuchen diese mit einer neuen
 Strategie konkret auszunutzen.
 
 Das eigenständige, selbst-geleitete Lösen von Problemen soll einen kreativen Lösungsprozess des
 Spielers fordern, ein exploratives Vorgehen motivieren, und damit verglichem mit dem geleiteten
 Prozess des Storymodus einen höheren Lerneffekt erzielen.
 
-Folgendes Schema stellt eine neue Strategieentwicklung dar und zeigt, dass die Entwicklung einer
-Strategie im Training den drei Stufen des Compuational Thinking Prozesses \ref{repenning_principles_2017}.
+Folgendes Schema stellt eine neue Strategieentwicklung dar.
+% und zeigt, dass die Entwicklung einer Strategie im Training den drei Stufen des Compuational Thinking Prozesses \ref{repenning_principles_2017}
 
 \begin{enumerate}
 \item Die initial geladenene Gegnerstrategie wird ausgeführt.
@@ -154,7 +150,7 @@ Das Jeder-gegen-Jeden-System ist die ausführlichste Weise, ein Turnier durchzuf
 für diese Turnierart ist die deutsche Fußballbundesliga. Um in diesem System eine Rangfolge zwischen
 Teilnehmern zu erzielen, tritt jeder Teilnehmer gegen jeden anderen Teilnehmer an und zählt die
 Siege, die erreicht wurden. Vorteil ist, dass diese Rangfolge erschöpfend ist. Nachteil dieses
-Modus ist die quadratisch steigende Anzahl von Kämpfen (n x n Kämpfe bei n = Anzahl der Teilnehmer),
+Modus ist die quadratisch steigende Anzahl von Kämpfen ($n x n$ Kämpfe bei $n$ Teilnehmern),
 die durchgeführt werden müssen. Für die Evaluation von Strategien im Open Stage-Modus bietet sich das
 Jeder-gegen-Jeden-System an, wenn eine geringe Anzahl von Teilnehmern besteht.
 
@@ -162,14 +158,16 @@ Das KO-System ist eine effizientere Weise, ein Turnier durchzuführen. Ein Beisp
 Turnierart ist die KO-Phase eines Fußball-Weltmeisterschaft. Das Turnier verläuft in Runden, wobei
 in der ersten Runde zufällig ausgewählte Pärchen gegeneinander antreten. Während der Verlierer eines
 Kampfes vom Turnier ausscheidet, geht der Sieger in die nächste Runde. Vorteil dieses Turnieres ist,
-dass bei n Teilnehmern lediglich n - 1 Kämpfe ausgeführt werden. Außerdem hat dieser Modus einen
-interessanteren Spannungsbogen, da bei jedem Kampf ein Spieler ausscheidet, und nach jeder Runde die
-Anzahl der Spieler durch zwei geteilt wird, bis es am Ende ein spannendes Finale gibt. Nachteil
-dieses Systems ist, dass die aus dem Turnier resultierende Rangfolge nicht zwangsläufig
-repräsentativ für die tatsächliche Rangfolge der Strategien ist. So mag es beispielsweise sein, dass
-die Gewinnerstrategie bei einem Turnier mit acht Teilnehmern eigentlich gegen vier der sieben Gegner
-verlieren würde, durch die zufällige initale Paarung jedoch auf die drei übrigen Strategien
-getroffen ist. Ein weiterer Nachteil ist, dass ein faires Turnier im KO-Modus mit mehr als zwei
+dass gegenüber dem Jeder-gegen-Jeden-System weitaus weniger Kämpfe ausgeführt werden ($n - 1$ Kämpfe
+bei $n$ Teilnehmern). Außerdem hat dieser Modus einen interessanteren Spannungsbogen, da bei jedem
+Kampf ein Spieler ausscheidet, und nach jeder Runde die Anzahl der Spieler durch zwei geteilt wird,
+bis es am Ende ein spannendes Finale gibt. Nachteil dieses Systems ist, dass die aus dem Turnier
+resultierende Rangfolge nicht zwangsläufig repräsentativ für die tatsächliche Rangfolge der
+Strategien ist. So mag es beispielsweise sein, dass die Gewinnerstrategie bei einem Turnier mit acht
+Teilnehmern eigentlich gegen vier der sieben Gegner verlieren würde, durch die zufällige initale
+Paarung jedoch auf die drei übrigen Strategien getroffen ist. Während er in dieser Paarung das
+Turnier gewinnen könnte, wäre er im Jeder-gegen-Jeden-Modus nicht zwangsläufig an oberster Stelle
+der Rangliste. Ein weiterer Nachteil ist, dass ein faires Turnier im KO-Modus mit mehr als zwei
 Teilnehmern eine Teilnehmeranzahl haben muss, die durch vier teilbar ist. Da dies nicht immer
 möglich ist, wollen wir dem Veranstalter die Möglichkeit geben, fehlende Teilnahmen durch selbst
 festgelegte Strategien aufzufüllen. Für die Evaluation von Strategien im Open Stage-Modus bietet
@@ -211,16 +209,22 @@ aktualisierte Turnierübersicht dargestellt.
 
 \section{Anforderungsanalyse}
 
-Die Mikrowelt des Storymodus des ctGameStudio bietet die Grundlage für den
-- Training
-  - Gegnerstrategien auswählen (vorgegebene und eigene)
-  - Strategiemanagement: Speichern, Laden, Bearbeiten
-- Turniere
-  - Verschiedene Modi (warum?)
-  - Verschiedene Optionen
-  - Teilnahme
-- Gameplay
-  - Ziel: Bessere/überlegtere Strategien sollen sich auch im Matchergebnis niederschlagen, ein intelligenter Einsatz der Programmierfähigkeiten führt zu größerem Erfolg führt
-  - Verschiedene Ansätze sollen zum Erfolg führen können, z.B. effizientes Ausweichen/Positionieren, oder besonders raffiniertes Verfolgen
-  - Vereinfachte Evaluation durch langsames Tempo
-- Design
+Zur Implementation des Open Stage-Modus muss das Benutzerinterface um Dialoge und Menüs zur Auswahl
+des Spielmodus und der Erstellung, Teilnahme an und Durchführung von Turnieren erweitert werden.
+
+Das Spiel soll um ein Strategiemanagement erweitert werden, um Strategien über mehrere Sitzungen
+hinweg bearbeiten zu können, und gleichzeitig Zugriff auf mehrere Strategien zu haben, die getrennt
+voneinander evaluiert und bearbeitet werden können.
+
+Die Spielfläche muss durch einen zweiten, durch eine nutzerdefinierte Strategie gesteuerten Roboter
+mit eigener Lebensanzeige, erweitert werden. Die Interaktion zwischen den Robotern muss so gestaltet
+werden, dass unterschiedliche Ansätze zwischen Strategien (z.B. ein Fokus auf viel Bewegung,
+effizientes Scannen oder Ausweichen) erfolgsversprechend sein können. Das Geschwindigkeit des
+Gameplays sollte so angepasst werden, dass die Interaktion der Roboter und ihre Bewegungen gut
+nachvollziehbar sind. Für die Turnierdurchführung muss das Spielfeld außerdem um eine
+Benutzeroberfläche zum Abbruch von Kämpfen und eine Anzeige der verbleibenden Zeit und Rundenzahl
+erweitert werden. 
+
+Als zusätzliches Ziel soll die Konzeption und Umsetzung eines immersiven, thematisch passenden
+Designs gesetzt werden, damit der Fantasy-Aspekt des Spiels und der allgemeine Spielspaß gestärkt
+wird.
