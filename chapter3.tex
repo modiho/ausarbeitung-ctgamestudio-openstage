@@ -23,128 +23,215 @@ einem Roboterkampf bestehen. Es gilt, eine Strategie zu entwickeln, um die Strat
 
 Das Spiel soll solche Schüler unterstützen, die die Grundlagen der Programmierung kennen lernen und
 ausbauen sollen. Der Kernlehrplan Informatik für Gymnasien und Gesamtschule in der Sekundarstufe II
-(\cite{SchulministeriumNRW2014}) legt dar, welche Kompetenzen ausgebildet und Inhalte
-thematisiert werden sollen. Im Fokus soll das Inhaltsfeld der Algorithmen stehen, welches im
-Lehrplan als "genaue Beschreibung zur Lösung eines Problems" (S. 17) definiert ist. Dies entspricht
-der Entwicklung von Problemlösestrategien in der Roboter-Mikrowelt des ctGameStudio.
+(\cite{SchulministeriumNRW2014}) definiert als Inhaltsfeld die Entwicklung von Algorithmen, welche
+als "genaue Beschreibung zur Lösung eines Problems" (S. 17) definiert werden. Dies entspricht
+der Entwicklung von Problemlösestrategien in der Roboter-Mikrowelt des ctGameStudio, und zeigt, dass
+das dieses Spiel die Anwendung in der Sekundarstufe II unterstützen sollte.
 
 Folgendes Lernszenario soll darstellen, wie das Spiel die Ziele des Lehrplans unterstützt und in den
 Unterricht eingebunden werden kann.
 
 Um die Grundlagen des Spiels sowie die zur Entwicklung von Problemlösestrategien nötigen
 Programmierkonzepte kennen zu lernen, spielen Schüler zunächst den Storymodus des ctGameStudio.
-Durch Bearbeiten der Level des Storymodus werden die inhaltlichen Schwerpunkte der Analyse, Entwurf
-und Implementierung einfacher Algorithmen (S. 23) unterstützt, und anhand dessen die Kompetenzen des
-Argumentierens, der Modellierung, der Implementation, des Darstellen und Interpretieren und
-Kommunizieren und Kooperieren gefördert.
+Durch Bearbeiten der Level des Storymodus werden die im Kernlehrplan definierten inhaltlichen
+Schwerpunkte der Analyse, Entwurf und Implementierung einfacher Algorithmen (S. 23) unterstützt, und
+anhand dessen die Kompetenzen des Argumentierens, der Modellierung, der Implementation, des
+Darstellen und Interpretieren und Kommunizieren und Kooperieren gefördert.
 
 Mit dem offenen Spielmodus werden die erlenten Kompetenzen vertieft. In Kämpfen zwischen dem eigenen
 gegen einen Gegnerroboter entwickeln die Schüler eigene Kampfstrategien. Dabei können sie die
 Gegnerstrategie aus eigenen oder vorgefertigten Strategien festlegen, um eine generell anwendbare,
 gegen viele Herausforderungen effektive Strategie zu entwickeln. Nachdem die Schüler eine oder
 mehrere Strategien entwickelt haben, kann der Lehrer ein Turnier veranstalten, in dem die Strategien
-gegeneinander ausgespielt werden. Das Turnier wird an einem gemeinesamen Bildschirm oder Projektion
-verfolgt, und liefert eine Diskussionsgrundlage um Strategien gemeinsam zu analysieren und
-evaluieren. (Auch hier Kompetenz des Kommunizieren, blabla). In weiteren Durchgängen können Schüler
-ihre Strategie verbessern, und weitere Turniere veranstaltet werden.
+gegeneinander ausgespielt werden und eine Rangliste entsteht. Das Turnier wird an einem gemeinesamen
+Bildschirm oder Projektion verfolgt, und liefert eine Diskussionsgrundlage um Strategien gemeinsam
+zu evaluieren. In weiteren Durchgängen können Schüler ihre Strategie verbessern, und weitere
+Turniere veranstaltet werden.
 
 
 \section{Offener Spielmodus: RoboStrategist}
 
 Kern des offenen Spielmodus ist der Kampf zwischen zwei Robotern, die vorprogrammierte Strategien
-ausführen, mit dem Ziel, den Gegner zu bezwingen. Im Trainingsmodus kann der Spieler eigene
-Strategien entwickeln, während der Turniermodus eine Plattform dafür bietet, verschiedene Strategien
-gegeneinander zu evaluieren.
+ausführen. Die Strategien sind Algorithmen zur Koordination der Fähigkeiten des Roboters, um den
+Gegner Schaden zuzufügen, und eigenen Schaden zu vermeiden. Eine erfolgreiche Strategie besteht aus
+effektiver Positionierung des Roboters auf dem Spielfeld, dem Ausweichen von Schüssen nachdem man
+getroffen wurde, dem Ausfinding machen und Verfolgen des Gegners, und das Zielen und Schießen auf
+den Gegner.
 
-Die Roboter eine begrenzte Zahl von Lebenspunkten. Durch Schüsse auf den Gegner können diese
-Lebenspunkte reduziert werden. Die Fähigkeiten des Roboters basieren auf der Bewegungssemantik, die
-für den Storymodus des ctGameStudio entwickelt wurden.
+Im Training kann der Spieler eigene Strategien entwickeln. Verschiedene Strategien können im
+Turniermodus gegeneinander antreten.
 
-\todo{bewegen in ctGameStudio Abschnitt in den Grundlagen?}
-
-\begin{itemize}
-\item Positionierung auf dem Spielfeld durch die Bewegung um eine Distanz oder bis zu einem Punkt
-auf der x- und y-Achse, der Bewegung bis die Wand oder der Gegner berührt wurde, dem Drehen um einen
-Winkel, und dem Drehen, um einen Punkt anzupeilen.
-\item Angriff durch Abgeben eines Schusses in Blickrichtung.
-\item Das Ausfinden machen des Gegners durch einen Scanvorgang in eine Richtung um den nächsten Gegner
-  zu finden, der sich in dieser Richtung befindet. Wurde ein Gegner gefunden, kann die Distanz und
-  Winkel zum ihm und seine Position gelesen werden.
-\item Feststellen von Ereignissen, wie der Fall ob man getroffen wurde, oder ob man mit der Wand oder dem
-Gegner kollidiert ist.
-\item Lesen der eigenen Attribute, darunter die Position auf dem Spielfeld und die Anzahl an
-verbleibenden Lebenspunkten.
-\end{itemize}
-
-Anhand dieser Aktionen und der Blockly-Programmiersprache werden die Kampfstrategien gebaut. Im
-Verlauf der Entwicklung einer Strategie entwickelt der Spieler kampfbezogene Abstraktionen (?) wie die
-strategische Positionierung und Bewegung auf dem Spielfeld um sich nicht finden zu lassen, dem
-Ausweichen, nach dem man getroffen wurde, dem Ausfindig machen des Gegners, das Verfolgen des
-Gegners nachdem man ihn gefunden hat, und der Angriff. ~~Je besser er diese löst, desto
-wahrscheinlicher ist, dass die Strategie erfolgreich ist~~.
+\todo{Unterbringen, dass die Startpostiionen von Robotern zufällig bestimmt werden.}
 
 
-\subsection{Trainingsmodus}
+\subsection{Training}
 
--> Der Trainingsmodus fördert eigenständiges, selbst-geleitetes Vorgehen beim Bauen von
-Kampfstrategien.- Die selbst-geleitete Problemstellung und Prozess fördert die Fähigkeit der Evaluation
-- Zum Einen werden durch komplexe Herausforderungen in Form von unterschiedlichen Gegnerstrategien wird eigenständige
-Problemlösung gefördert, und die Programmierfähigkeit damit stärker vertieft.
-- Zum Anderen soll Kreativität und Exploration des Spieler gefordert werden, in dem er selbst
-auswählt, gegen welche Strategien er kämpft. Dabei soll aus vorgefertigten und selbst gebauten
-Strategien ausgewählt können.
-- Angelehnt an die letzten beiden Level des Storymodus werden alle CT-Fähigkeiten benötigt und
-ausgebildet. Gesamte Strategie bildet ein Algorithmus (Initiale Positionierung, Endlosschleife, usw.) mit 
-  - z.B. Verfolgen und Angreifen umsetzen in dem man ein einer Schleife scan + schießen + neu orientieren falls Roboter nicht mehr in Sicht + ...)
-- Prozess der Entwicklung bei erstem Öffnen des Trainingsmodus
-  1. Die initial geladenene Gegnerstrategie wird ausgeführt (Bonus: Man hat direkt einen Startpunkt
-  und weiß wo man anfangen kann...)
-  2. Man analysiert die Gegnerstrategie und bildet erste Lösungsansätze (Der Gegner ist .
-  3. Man formuliert und implementiert erste Lösungsansätze. Man kann auf das Wissen aus den letzten
-  Leveln des Storymodus zurückgreifen, um einen ersten Anhaltspunkt dafür zu haben.
-  4. Man führt den Kampf aus und analysiert seinen Verlauf
-    - Macht der Roboter das, was ich mit dem Programm erzielen wollte?
-    - Führt mein Problemansatz zu Erfolg?
-  5. Aufgrund der Analyse verbessert der Spieler seine Strategie.
-  6. Schritt 4 und 5 werden wiederholt, bis das Erfolgskriterium erreicht ist.
-  7. Der Spieler wählt eine neue Gegnerstrategie, um seine Strategie an einer neuen Strategie zu
-  testen.
-  8. Schritt 4 bis 7 werden wiederholt, bis der Spieler alle Gegnerstrategien bezwungen hat und mit
-  seiner Strategie zufrieden ist.
-  9. Der Spieler kann außerdem versuchen, seine eigene Strategie zu besiegen, in dem er sie als
-  Gegnerstrategie festlegt.
-- Um verschiedene Strategieansätze ausprobieren zu können, kann der Spieler seine Strategien
-speichern, kopieren, neue anlegen, und zwischen diesen wechseln.
-- Die Umgebung ermöglicht iteratives Vorgehen (Papert Sprache?).
+Der Training fördert eigenständiges, selbst-geleitetes Lösen von Problemen, und bietet damit
+eine Plattform, seine Programmierfähigkeiten zu vertiefen. Zum Einen werden komplexe
+Herausforderungen in Form von unterschiedlichen Gegnerstrategien gestellt. Der Spieler
+wendet Abstraktionen wie Schleifen, Verzweigungen, Variablen, Prozeduren und Funktionen an, um einen
+Algorithmus zu entwickeln. Der Algorithmus ist das Code-Artefakt, das gegen das Problem in Form der 
+Gegnerstrategie evaluiert wird.
+
+Abb. TODO zeigt eine Beispielstrategie. In einer Endlosschleife wird der Roboter bewegt, der Gegner
+aufgesucht, auf den Gegner gezielt und geschossen. Die Bewegung besteht aus einfachem Aufruf von
+Bewegungsaktionen. Für den Scanvorgang, wird eine Schleife mit einer sich verändernden Variable
+benutzt, um in verschiedenen Richtungen zu scannen und das Scanergebnis zu speichern und als
+Abbruchbedingen zu benutzen.
+
+\todo{Beispielstrategie erstellen}
+
+Zum Anderen kann der Spieler eigenständig wählen, wie er bei der Entwicklung der
+Problemlösestrategie vorgeht, in dem er selbst wählt, gegen welche Strategien er seine Strategie
+testet. Im Rahmen dieser Arbeit sollen dafür dafür drei vorgefertigte Gegnerstrategien verfügbar
+sein. Die Strategien unterscheiden sich in ihren Ansätzen und ihrer Komplexität.
+
+Die erste Strategie, \enquote{Verwirrt}, (Abb. \ref{strategie-verwirrt}) ist dazu gestaltet, einen
+einfachen Einstieg in die Strategieentwicklung zu geben. Der Roboter bewegt sich in zufälligen
+Zeitabständigen auf zufällig gewählte Positionen, und gibt zwischendurch Schüsse in zufällige
+Richtungen ab. Um den Roboter zu besiegen, muss der Spieler eine Strategie entwickeln, die den
+Gegner immer wieder auffindet, und Schüsse in seine Richtung feuert. Dadurch, dass kein
+Zielen auf den Roboter des Spielers besteht, muss die Lösungsstrategie nicht besonders effizient
+sein. Auch um die eigene Positionierung muss sich der Spieler keine Gedanken machen.
+
+Die zweite Strategie, \enquote{Wandkrabbler} (Abb. \ref{strategie-wandkrabller}), agiert in einem
+vorsehbaren Muster. Der Roboter bewegt sich an am Spielfeldrand entlang und scannt in kleinen
+Abständen voneinander entgegengesetzt der Wand nach dem Gegner. Wurde dieser entdeckt, schießt er
+solange, bis der Gegner seine Position ändert. Diese Strategie erfordert vom Spieler eine Strategie
+zu entwickeln, in der unterschiedliche Postionen eingenommen werden, um die Entdeckung durch den
+Gegner zu verzögern und im Fall eines Treffers weiteren Schüssen auszweichen. Die erhöhte Gefahr
+durch den Wandkrabbler erfordert auch einen effizienten Scanvorgang, so dass man den Gegner öfter
+und schneller auffindet und Schaden zufügt, als er es tut.
+
+\todo{Wandkrabbler anpassen, so dass dieser nicht ausweicht, aber dafür bei Entdeckung des Gegners
+kontinuierlich schießt.}
+
+Die dritte Strategie, \enquote{Eckenschütze} (Abb. \ref{strategie-wandkrabller}), ist die
+gefährlichste aller Strategien. Zunächst hat sie den effizientesten Scanmechanismus. Dazu bewegt der
+Roboter sich zwischen den Ecken des Spielfelds, und scannt von den Ecken aus in kleinen Schritten
+das gesamte Spielfeld ab. So ist die Chance groß, innerhalb eines kurzen Zeitraums den Gegner
+aufzufinden. Wurde der Gegner entdeckt, werden so lange Schüsse abgegeben, bis der Gegner seine
+Position ändert. Die Strategie implementiert zudem einen Ausweichmechanismus, so dass der Roboter in die
+nächste Ecke wechselt, wenn er getroffen wurde. Um diese Strategie zu besiegen erfordert ständige
+Bewegung auf dem Spielfeld, um den Scanvorgängen zu entgehen. Wahrscheinlich sollte sie ein eigenen
+Ausweichmechanimus implementieren, und einen effiziente Scanvorgang beinhalten.
+
+Wie vorher gezeigt (? Bezug auf Papert), sollte eine Mikrowelt iteratives, selbst gesteuertes
+Vorgehen erlauben, um die inherente Kreativität und Explorationswillen des Menschen zu nutzen. In
+diesem Sinne wollen wir dem Spieler die Möglichkeit geben, als Gegnerstrategien neben den
+vorgefertigten auch selbst erstellte Strategien zu wählen. Um seine Strategie zu verbessern, könnte
+der Spieler durch Analyse Schwachpunkte seiner Strategie feststellen, und versuchen diese mit einer neuen
+Strategie konkret auszunutzen.
+
+Das eigenständige, selbst-geleitete Lösen von Problemen soll einen kreativen Lösungsprozess des
+Spielers fordern, ein exploratives Vorgehen motivieren, und damit verglichem mit dem geleiteten
+Prozess des Storymodus einen höheren Lerneffekt erzielen.
+
+Folgendes Schema stellt eine neue Strategieentwicklung dar und zeigt, dass die Entwicklung einer
+Strategie im Training den drei Stufen des Compuational Thinking Prozesses \ref{repenning_principles_2017}.
+
+\begin{enumerate}
+\item Die initial geladenene Gegnerstrategie wird ausgeführt.
+\item Man analysiert die Gegnerstrategie und bildet erste Lösungsansätze (Problem Formulation).
+\item Man formuliert und implementiert erste Lösungsansätze (Solution Expression). Man kann auf das Wissen aus den letzten
+Leveln des Storymodus zurückgreifen, um einen ersten Anhaltspunkt dafür zu haben.
+\item Man führt den Kampf aus und analysiert seinen Verlauf (Solution Execution \& Evaluation). Die Evaluationskriterien sind, ob der Roboter
+das macht, was man mit dem Programm erzielen wollte, und ob der Problemansatz zum Erfolg führt.
+\item Aufgrund der Analyse verbessert der Spieler seine Strategie.
+\item Schritt 4 und 5 werden wiederholt, bis der Gegner wiederholt geschlagen werden kann.
+\item Der Spieler wählt eine neue Gegnerstrategie.
+\item Schritt 4 bis 7 werden wiederholt, bis der Spieler alle Gegnerstrategien hat. Der Spieler kann außerdem
+versuchen, seine eigene Strategie zu besiegen, in dem er sie als Gegnerstrategie festlegt.
+\end{enumerate}
+
+Um verschiedene Strategieansätze ausprobieren zu können, und in mehreren Sitzungen an den Strategien
+arbeiten zu können, kann der Spieler seine Strategien speichern, kopieren, neue anlegen, und
+zwischen diesen wechseln.
 
 
-- Was wollen wir mit einem offenen Spielmodus erreichen?
-- Das Entwickeln einer Strategie, bzw. die Umsetzung dieser Abstraktionen erfordert andere CT-Fähigkeiten wie Aufspaltung (z.B. Ausweichen = Treffer feststellen + neue Position einnehmen) in und Algorithmisches Denken
-  - 
-- Der Gegner-Roboter ist zum einen ein motivierender Faktor aufgrund des Wettbewerbs ("Ich muss überleben/will besser sein"),
-  zum anderen ein Spiegelbild des eigenen Roboters und damit Evaluationssubjekt ("Um mich zu verteidigen muss ich verstehen was er macht" und anhand des Gegners sehen wie man selbst vorgehen kann)
-- Community-Aspekt durch Turniermodus: Evaluation gegen andere Mitschüler, zusätzliche Motivation -> "besser als meine Mitschüler sein", sich unbekannten Herausforderungen stellen
+\subsection{Turniere}
 
-\subsection{Gameplay}
+Turniere sind spannend und erhöhen Spielspaß und damit die Motivation, das Spiel zu spielen. Der
+kompetitive Aspekt wird Spieler dazu motivieren, gute Strategien zu entwickeln. Die
+Turnierdurchführung selber bietet einen Vergleich zwischen Strategien und ist so
+Diskussionsgrundlage für verschiedene Strategieansätze und Verbesserungen.
 
-- Ziel: Bessere/überlegtere Strategien sollen sich auch im Matchergebnis niederschlagen, ein intelligenter Einsatz der Programmierfähigkeiten führt zu größerem Erfolg führt
-- Verschiedene Ansätze sollen zum Erfolg führen können, z.B. effizientes Ausweichen/Positionieren, oder besonders raffiniertes Verfolgen
-- Eval
+Da es verschiedene Möglichkeiten gibt, ein Turnier durchzuführen, und diese ihre eigenen Vor- und
+Nachteile haben, wollen wir dem Turnierveranstalter die Wahl eines Turniersystems geben. In dieser
+ersten Version des Open Stage-Modus wollen wir die zwei gebräuchlisten Turniersysteme zur Wahl
+stellen.
+
+Das Jeder-gegen-Jeden-System ist die ausführlichste Weise, ein Turnier durchzuführen. Ein Beispiel
+für diese Turnierart ist die deutsche Fußballbundesliga. Um in diesem System eine Rangfolge zwischen
+Teilnehmern zu erzielen, tritt jeder Teilnehmer gegen jeden anderen Teilnehmer an und zählt die
+Siege, die erreicht wurden. Vorteil ist, dass diese Rangfolge erschöpfend ist. Nachteil dieses
+Modus ist die quadratisch steigende Anzahl von Kämpfen (n x n Kämpfe bei n = Anzahl der Teilnehmer),
+die durchgeführt werden müssen. Für die Evaluation von Strategien im Open Stage-Modus bietet sich das
+Jeder-gegen-Jeden-System an, wenn eine geringe Anzahl von Teilnehmern besteht.
+
+Das KO-System ist eine effizientere Weise, ein Turnier durchzuführen. Ein Beispiel für diese
+Turnierart ist die KO-Phase eines Fußball-Weltmeisterschaft. Das Turnier verläuft in Runden, wobei
+in der ersten Runde zufällig ausgewählte Pärchen gegeneinander antreten. Während der Verlierer eines
+Kampfes vom Turnier ausscheidet, geht der Sieger in die nächste Runde. Vorteil dieses Turnieres ist,
+dass bei n Teilnehmern lediglich n - 1 Kämpfe ausgeführt werden. Außerdem hat dieser Modus einen
+interessanteren Spannungsbogen, da bei jedem Kampf ein Spieler ausscheidet, und nach jeder Runde die
+Anzahl der Spieler durch zwei geteilt wird, bis es am Ende ein spannendes Finale gibt. Nachteil
+dieses Systems ist, dass die aus dem Turnier resultierende Rangfolge nicht zwangsläufig
+repräsentativ für die tatsächliche Rangfolge der Strategien ist. So mag es beispielsweise sein, dass
+die Gewinnerstrategie bei einem Turnier mit acht Teilnehmern eigentlich gegen vier der sieben Gegner
+verlieren würde, durch die zufällige initale Paarung jedoch auf die drei übrigen Strategien
+getroffen ist. Ein weiterer Nachteil ist, dass ein faires Turnier im KO-Modus mit mehr als zwei
+Teilnehmern eine Teilnehmeranzahl haben muss, die durch vier teilbar ist. Da dies nicht immer
+möglich ist, wollen wir dem Veranstalter die Möglichkeit geben, fehlende Teilnahmen durch selbst
+festgelegte Strategien aufzufüllen. Für die Evaluation von Strategien im Open Stage-Modus bietet
+sich bei einer hohen erwarteten Anzahl von Teilnehmern an, und der Unterhaltungswert des Turniers
+eine große Rolle spielt. 
+
+Wenn Strategien ineffektiv sind, kann es sein, das in einem Kampf innerhalb eines vertretbaren
+Zeitraums kein Sieger festegestellt werden kann. Deshalb soll bei Erstellung des Turniers eine
+maximale Rundendauer festgelegt werden können. Im Jeder-gegen-Jeden-Modus geht der Kampf nach Ablauf
+der Zeit unentschieden aus. Im KO-Modus muss ein Sieger festgestellt werden. Dauzu gewinnt in
+diesem Modus nach Ablauf dieser Zeit der Spieler, dessen Roboter weniger Schaden genommen hat. Sind
+hier beide Spieler gleich, kann der Turnierleiter selbst einen Sieger festlegen.
+
+Da bereits zu vor Ablauf der Zeit absehbar sein kann, dass es zu keinem Sieger kommen wird, soll es
+außerdem es die Möglichkeit geben, eine Runde abzubrechen. Der Turnierleiter kann den Kampf
+wiederholen, oder das Ergebnis selbst bestimmen.
+
+Das Resultat mehrerer Kämpfe mit den selben Strategien kann aufgrund der zufälligen Startposition
+der Roboter unterschiedlich sein. Um die tatsächliche bessere Strategie zu ermitteln, könnte es
+nötig sein, einen Kampf aus mehreren Runden bestehen zu lassen. Ein Spieler würde dann den Kampf
+gewinnen, der zuerst zwei oder drei Runden gewonnen hat. Auch hierfür soll es bei Erstellung des
+Turnieres eine Option geben.
+
+Die Turnierfunktion ist so gestaltet, dass die Teilnehmer nicht bei Erstellung des Turniers bekannt
+sein müssen. Dazu wird bei Erstellung einen Zugangscode generiert. Spieler, die diesen Code kennen,
+können sich mit einer ihrer im Training erstellten Strategien am Turnier anmelden.
+
+In einer Turnierliste kann der Turnierersteller die Namen und Strategienamen der Teilnehmer
+einsehen, und das Turnier starten. Um die Durchführung des Turniers zu verfolgen muss der Bildschirm
+des Turniererstellers betrachtet werden.
+
+Eine Turnierübersicht zeigt den Verlauf und Ranglisten des Turniers. Die Ansichten unterscheiden
+sich dabei je nach Turniersystem. Im Jeder-gegen-Jeden-Modus werden vergangene Kämpfe, noch
+anstehende Kämpfe, und eine Tabelle mit der Anzahl von Siegen pro Spieler angezeigt. Im KO-Modus
+wird der Turnierbaum angezeigt. Der Turnierersteller kann den jeweils nächsten Kampf über einen
+Button starten. Das Spielfeld wird geladen und der Kampf ausgeführt. Nach Ende des Kampfes wird die
+aktualisierte Turnierübersicht dargestellt.
 
 
-\subsection{Turniermodus}
-      
 \section{Anforderungsanalyse}
 
-- Trainingsmodus
+Die Mikrowelt des Storymodus des ctGameStudio bietet die Grundlage für den
+- Training
   - Gegnerstrategien auswählen (vorgegebene und eigene)
   - Strategiemanagement: Speichern, Laden, Bearbeiten
-- Turniermodus
+- Turniere
   - Verschiedene Modi (warum?)
   - Verschiedene Optionen
   - Teilnahme
-Welche Aspekte von CT werden noch nicht vom CT Game Studio unterstützt,
-
-z.B. Evaluation, Kreislauf, selber dem Gegnerroboter Strategie auswählen
-
-Anforderungen aus Szenario und Litaratur extrahieren
+- Gameplay
+  - Ziel: Bessere/überlegtere Strategien sollen sich auch im Matchergebnis niederschlagen, ein intelligenter Einsatz der Programmierfähigkeiten führt zu größerem Erfolg führt
+  - Verschiedene Ansätze sollen zum Erfolg führen können, z.B. effizientes Ausweichen/Positionieren, oder besonders raffiniertes Verfolgen
+  - Vereinfachte Evaluation durch langsames Tempo
+- Design
